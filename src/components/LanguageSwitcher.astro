@@ -1,0 +1,33 @@
+---
+const currentLocale = Astro.currentLocale || 'en';
+const currentPath = Astro.url.pathname;
+
+// Determine the alternate locale
+const alternateLocale = currentLocale === 'en' ? 'es' : 'en';
+
+// Create the alternate URL by replacing the locale prefix
+// Handle both /en and /en/ formats
+let alternatePath = currentPath;
+if (currentPath === `/${currentLocale}` || currentPath === `/${currentLocale}/`) {
+	alternatePath = `/${alternateLocale}/`;
+} else {
+	alternatePath = currentPath.replace(`/${currentLocale}/`, `/${alternateLocale}/`);
+}
+---
+
+<a href={alternatePath} class="lang-link">
+	{currentLocale === 'en' ? 'Español' : 'English'}
+</a>
+
+<style>
+	.lang-link {
+		color: var(--text-light);
+		text-decoration: none;
+		font-size: 0.9375rem;
+		transition: color 0.2s;
+	}
+	
+	.lang-link:hover {
+		color: var(--text-dark);
+	}
+</style>

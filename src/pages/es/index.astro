@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { translations } from '../../i18n/translations.js';
+
+const t = translations.es;
+---
+
+<BaseLayout
+	title={t.meta.title}
+	description={t.meta.description}
+	lang="es"
+	navBrand={t.nav.brand}
+	navLinks={{
+		services: t.nav.services,
+		about: t.nav.about,
+		contact: t.nav.contact
+	}}
+	footerCopyright={t.footer.copyright}
+	footerLinks={t.footer.links}
+	footerSocial={t.footer.social}
+	themeToggleLabel="Cambiar tema"
+>
+
+	<!-- Hero Section -->
+	<section class="hero">
+		<div class="container">
+			<div class="hero-content" transition:name="hero-content">
+				<h1 class="hero-title">{t.hero.headline}</h1>
+				<p class="hero-subtitle">
+					{t.hero.subheadline}
+				</p>
+				<div class="hero-buttons">
+					<a href="#contact" class="btn btn-primary">{t.hero.ctaPrimary}</a>
+					<a href="#services" class="btn btn-secondary">{t.hero.ctaSecondary}</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Services Section (What I Do) -->
+	<section id="services" class="services">
+		<div class="container" transition:name="services-content">
+			<h2 class="section-title">{t.services.title}</h2>
+			
+			<div class="services-grid">
+				{t.services.items.map((service) => (
+					<div class="service-card">
+						<div class="service-icon">{service.icon}</div>
+						<h3>{service.title}</h3>
+						<p>{service.description}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- About Me Section -->
+	<section id="about" class="about">
+		<div class="container">
+			<div class="about-content" transition:name="about-content">
+				<h2 class="section-title">{t.about.title}</h2>
+				
+				<p class="about-intro">{t.about.intro}</p>
+				
+				<div class="about-focus">
+					<h3>{t.about.focusTitle}</h3>
+					<ul class="focus-list">
+						{t.about.focusList.map((item) => (
+							<li>{item}</li>
+						))}
+					</ul>
+				</div>
+				
+				<p class="about-description">{t.about.mainDescription}</p>
+				
+				<p class="about-philosophy"><strong>{t.about.philosophy}</strong></p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Why Work With Me Section -->
+	<section class="why-me">
+		<div class="container">
+			<div class="why-me-content" transition:name="why-me-content">
+				<h2 class="section-title">{t.whyMe.title}</h2>
+				
+				<ul class="reasons-list">
+					{t.whyMe.reasons.map((reason) => (
+						<li>✓ {reason}</li>
+					))}
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- Work With Me CTA Section -->
+	<section class="work-cta">
+		<div class="container">
+			<div class="work-cta-content" transition:name="work-cta-content">
+				<h2>{t.workCta.title}</h2>
+				<p>{t.workCta.description}</p>
+				<a href="#contact" class="btn btn-primary btn-large">{t.workCta.button}</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- For Recruiters Section -->
+	<section class="recruiters">
+		<div class="container">
+			<div class="recruiters-content" transition:name="recruiters-content">
+				<h2 class="section-title">{t.recruiters.title}</h2>
+				<p>{t.recruiters.description}</p>
+				<div class="recruiters-buttons">
+					<a href="#" class="btn btn-secondary">{t.recruiters.resume}</a>
+					<a href="#" class="btn btn-secondary">{t.recruiters.linkedin}</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Contact Section -->
+	<section id="contact" class="contact">
+		<div class="container">
+			<div class="contact-content" transition:name="contact-content">
+				<h2 class="section-title">{t.contact.title}</h2>
+				
+				<form class="contact-form" data-success-message={t.contact.successMessage}>
+					<div class="form-group">
+						<input 
+							type="text" 
+							placeholder={t.contact.namePlaceholder}
+							class="form-input"
+							required
+						/>
+					</div>
+					<div class="form-group">
+						<input 
+							type="email" 
+							placeholder={t.contact.emailPlaceholder}
+							class="form-input"
+							required
+						/>
+					</div>
+					<div class="form-group">
+						<textarea 
+							placeholder={t.contact.messagePlaceholder}
+							class="form-textarea"
+							rows="5"
+							required
+						></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary">{t.contact.submitButton}</button>
+				</form>
+				
+				<p class="contact-divider">{t.contact.orText}</p>
+				
+				<a href="https://wa.me/" class="btn btn-secondary btn-whatsapp">{t.contact.whatsappButton}</a>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
