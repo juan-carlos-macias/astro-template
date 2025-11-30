@@ -1,17 +1,29 @@
 ---
-const currentLocale = Astro.currentLocale || 'en';
 const currentPath = Astro.url.pathname;
 
-// Determine the alternate locale
-const alternateLocale = currentLocale === 'en' ? 'es' : 'en';
+// Determine if we're on English or Spanish page
+// Root (/) and /es/ are both Spanish, /en/ is English
+const isEnglish = currentPath.startsWith('/en');
+const currentLocale = isEnglish ? 'en' : 'es';
 
-// Create the alternate URL by replacing the locale prefix
-// Handle both /en and /en/ formats
-let alternatePath = currentPath;
-if (currentPath === `/${currentLocale}` || currentPath === `/${currentLocale}/`) {
-	alternatePath = `/${alternateLocale}/`;
+// Create the alternate URL
+let alternatePath: string;
+if (isEnglish) {
+	// From English go to root (Spanish)
+	if (currentPath === '/en' || currentPath === '/en/') {
+		alternatePath = '/';
+	} else {
+		alternatePath = currentPath.replace('/en/', '/');
+	}
 } else {
-	alternatePath = currentPath.replace(`/${currentLocale}/`, `/${alternateLocale}/`);
+	// From Spanish (root or /es/) go to English
+	if (currentPath === '/' || currentPath === '/es' || currentPath === '/es/') {
+		alternatePath = '/en/';
+	} else if (currentPath.startsWith('/es/')) {
+		alternatePath = currentPath.replace('/es/', '/en/');
+	} else {
+		alternatePath = '/en' + currentPath;
+	}
 }
 ---
 
